@@ -57,14 +57,24 @@
                                 <from>openjdk:latest</from>
                                 <assembly>
                                     <inline>
-                                        <id>depenencies</id>
-                                        <dependencySets>
-                                            <dependencySet>
-                                            </dependencySet>
-                                        </dependencySets>
+                                        <fileSet>
+                                            <outputDirectory>/</outputDirectory>
+                                            <directory>${project.build.directory}</directory>
+                                            <includes>
+                                                <include>${project.artifactId}-${project.version}.jar</include>
+                                            </includes>
+                                        </fileSet>
+                                        <fileSet>
+                                            <outputDirectory>/</outputDirectory>
+                                            <directory>${basedir}/src/main/docker</directory>
+                                            <includes>
+                                                <include>docker-entrypoint.sh</include>
+                                            </includes>
+                                            <fileMode>755</fileMode>
+                                        </fileSet>
                                     </inline>
                                 </assembly>
-                                <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                                <cmd>/maven/docker-entrypoint.sh</cmd>
                             </build>
                             <run>
                                 <namingStrategy>alias</namingStrategy>
